@@ -19,9 +19,9 @@ class CheckScopesTest extends TestCase
         $request = new Request;
         $user = Double::for(HasApiTokens::class);
         $request->setUserResolver(fn () => $user);
-        $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
-        $user->allows('tokenCan')->with('foo')->returns(true);
-        $user->allows('tokenCan')->with('bar')->returns(true);
+        $user->expects('currentAccessToken')->returns($token = Double::for(\stdClass::class));
+        $user->expects('tokenCan')->with('foo')->returns(true);
+        $user->expects('tokenCan')->with('bar')->returns(true);
 
         $response = $middleware->handle($request, function () {
             return 'response';
@@ -38,8 +38,8 @@ class CheckScopesTest extends TestCase
         $request = new Request;
         $user = Double::for(HasApiTokens::class);
         $request->setUserResolver(fn () => $user);
-        $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
-        $user->allows('tokenCan')->with('foo')->returns(false);
+        $user->expects('currentAccessToken')->returns($token = Double::for(\stdClass::class));
+        $user->expects('tokenCan')->with('foo')->returns(false);
 
         $middleware->handle($request, function () {
             return 'response';
@@ -67,7 +67,7 @@ class CheckScopesTest extends TestCase
         $request = new Request;
         $user = Double::for(HasApiTokens::class);
         $request->setUserResolver(fn () => $user);
-        $user->allows('currentAccessToken')->returns(null);
+        $user->expects('currentAccessToken')->returns(null);
 
         $middleware->handle($request, function () {
             return 'response';

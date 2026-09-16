@@ -43,7 +43,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns($fakeUser = new User);
 
@@ -61,7 +61,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -81,7 +81,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -108,7 +108,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -135,7 +135,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -164,7 +164,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -220,7 +220,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -298,7 +298,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -332,7 +332,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -364,7 +364,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -408,7 +408,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
@@ -437,7 +437,7 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(AuthGuard::class);
 
-        $factory->allows('guard')->with('web')->returns($webGuard);
+        $factory->expects('guard')->with('web')->returns($webGuard);
 
         $webGuard->expects('user')->returns(null);
 
