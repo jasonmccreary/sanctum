@@ -2,6 +2,7 @@
 
 namespace Laravel\Sanctum\Tests\Unit;
 
+use JMac\Testing\Double;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -18,9 +19,9 @@ class CheckForAnyAbilityTest extends TestCase
     public function test_request_is_passed_along_if_abilities_are_present_on_token()
     {
         $middleware = new CheckForAnyAbility;
-        $request = Mockery::mock();
-        $request->shouldReceive('user')->andReturn($user = Mockery::mock());
-        $user->shouldReceive('currentAccessToken')->andReturn($token = Mockery::mock());
+        $request = Double::for(\stdClass::class);
+        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
+        $user->shouldReceive('currentAccessToken')->andReturn($token = Double::for(\stdClass::class));
         $user->shouldReceive('tokenCan')->with('foo')->andReturn(true);
         $user->shouldReceive('tokenCan')->with('bar')->andReturn(false);
 
@@ -36,9 +37,9 @@ class CheckForAnyAbilityTest extends TestCase
         $this->expectException('Laravel\Sanctum\Exceptions\MissingAbilityException');
 
         $middleware = new CheckForAnyAbility;
-        $request = Mockery::mock();
-        $request->shouldReceive('user')->andReturn($user = Mockery::mock());
-        $user->shouldReceive('currentAccessToken')->andReturn($token = Mockery::mock());
+        $request = Double::for(\stdClass::class);
+        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
+        $user->shouldReceive('currentAccessToken')->andReturn($token = Double::for(\stdClass::class));
         $user->shouldReceive('tokenCan')->with('foo')->andReturn(false);
         $user->shouldReceive('tokenCan')->with('bar')->andReturn(false);
 
@@ -52,7 +53,7 @@ class CheckForAnyAbilityTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckForAnyAbility;
-        $request = Mockery::mock();
+        $request = Double::for(\stdClass::class);
         $request->shouldReceive('user')->once()->andReturn(null);
 
         $middleware->handle($request, function () {
@@ -65,8 +66,8 @@ class CheckForAnyAbilityTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckForAnyAbility;
-        $request = Mockery::mock();
-        $request->shouldReceive('user')->andReturn($user = Mockery::mock());
+        $request = Double::for(\stdClass::class);
+        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
         $user->shouldReceive('currentAccessToken')->andReturn(null);
 
         $middleware->handle($request, function () {
