@@ -22,7 +22,7 @@ class CheckAbilitiesTest extends TestCase
         $user->allows('tokenCan')->with('foo')->returns(true);
         $user->allows('tokenCan')->with('bar')->returns(true);
 
-        $response = $middleware->handle($request, function () {
+        $response = $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
 
@@ -39,7 +39,7 @@ class CheckAbilitiesTest extends TestCase
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(false);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -52,7 +52,7 @@ class CheckAbilitiesTest extends TestCase
         $request = Double::for(Request::class, override: true);
         $request->expects('user')->returns(null);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -66,7 +66,7 @@ class CheckAbilitiesTest extends TestCase
         $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
         $user->allows('currentAccessToken')->returns(null);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }

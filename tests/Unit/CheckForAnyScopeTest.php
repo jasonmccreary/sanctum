@@ -22,7 +22,7 @@ class CheckForAnyScopeTest extends TestCase
         $user->allows('tokenCan')->with('foo')->returns(true);
         $user->allows('tokenCan')->with('bar')->returns(false);
 
-        $response = $middleware->handle($request, function () {
+        $response = $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
 
@@ -40,7 +40,7 @@ class CheckForAnyScopeTest extends TestCase
         $user->allows('tokenCan')->with('foo')->returns(false);
         $user->allows('tokenCan')->with('bar')->returns(false);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -53,7 +53,7 @@ class CheckForAnyScopeTest extends TestCase
         $request = Double::for(Request::class, override: true);
         $request->expects('user')->returns(null);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -67,7 +67,7 @@ class CheckForAnyScopeTest extends TestCase
         $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
         $user->allows('currentAccessToken')->returns(null);
 
-        $middleware->handle($request, function () {
+        $middleware->handle($request->instance(), function () {
             return 'response';
         }, 'foo', 'bar');
     }
