@@ -2,7 +2,9 @@
 
 namespace Laravel\Sanctum\Tests\Unit;
 
+use Illuminate\Http\Request;
 use JMac\Testing\Double;
+use Laravel\Sanctum\Contracts\HasApiTokens;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -19,8 +21,8 @@ class CheckAbilitiesTest extends TestCase
     public function test_request_is_passed_along_if_abilities_are_present_on_token()
     {
         $middleware = new CheckAbilities;
-        $request = Double::for(\stdClass::class);
-        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $request = Double::for(Request::class, override: true);
+        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(true);
         $user->allows('tokenCan')->with('bar')->returns(true);
@@ -37,8 +39,8 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Laravel\Sanctum\Exceptions\MissingAbilityException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(\stdClass::class);
-        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $request = Double::for(Request::class, override: true);
+        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(false);
 
@@ -52,7 +54,7 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(\stdClass::class);
+        $request = Double::for(Request::class, override: true);
         $request->expects('user')->returns(null);
 
         $middleware->handle($request, function () {
@@ -65,8 +67,8 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(\stdClass::class);
-        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $request = Double::for(Request::class, override: true);
+        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
         $user->allows('currentAccessToken')->returns(null);
 
         $middleware->handle($request, function () {
