@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use JMac\Testing\Integrations\PHPUnit\VerifiesDoubles;
 use Laravel\Sanctum\Events\TokenAuthenticated;
 use Laravel\Sanctum\Guard;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -23,7 +24,7 @@ use Workbench\Database\Factories\UserFactory;
 
 class GuardTest extends TestCase
 {
-    use RefreshDatabase, WithWorkbench;
+    use RefreshDatabase, VerifiesDoubles, WithWorkbench;
 
     protected function defineEnvironment($app)
     {

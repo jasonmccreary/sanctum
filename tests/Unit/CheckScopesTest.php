@@ -4,12 +4,15 @@ namespace Laravel\Sanctum\Tests\Unit;
 
 use Illuminate\Http\Request;
 use JMac\Testing\Double;
+use JMac\Testing\Integrations\PHPUnit\VerifiesDoubles;
 use Laravel\Sanctum\Contracts\HasApiTokens;
 use Laravel\Sanctum\Http\Middleware\CheckScopes;
 use PHPUnit\Framework\TestCase;
 
 class CheckScopesTest extends TestCase
 {
+    use VerifiesDoubles;
+
     public function test_request_is_passed_along_if_scopes_are_present_on_token()
     {
         $middleware = new CheckScopes;
