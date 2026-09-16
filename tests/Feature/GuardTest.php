@@ -2,7 +2,6 @@
 
 namespace Laravel\Sanctum\Tests\Feature;
 
-use JMac\Testing\Double;
 use DateTimeInterface;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
@@ -10,6 +9,7 @@ use Illuminate\Contracts\Auth\Guard as AuthGuard;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use JMac\Testing\Double;
 use JMac\Testing\Integrations\PHPUnit\VerifiesDoubles;
 use Laravel\Sanctum\Events\TokenAuthenticated;
 use Laravel\Sanctum\Guard;
