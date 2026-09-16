@@ -16,13 +16,14 @@ class CheckForAnyScopeTest extends TestCase
     public function test_request_is_passed_along_if_scopes_are_present_on_token()
     {
         $middleware = new CheckScopes;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(true);
         $user->allows('tokenCan')->with('bar')->returns(false);
 
-        $response = $middleware->handle($request->instance(), function () {
+        $response = $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
 
@@ -34,13 +35,14 @@ class CheckForAnyScopeTest extends TestCase
         $this->expectException('Laravel\Sanctum\Exceptions\MissingScopeException');
 
         $middleware = new CheckScopes;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(false);
         $user->allows('tokenCan')->with('bar')->returns(false);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -50,10 +52,10 @@ class CheckForAnyScopeTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckScopes;
-        $request = Double::for(Request::class, override: true);
-        $request->expects('user')->returns(null);
+        $request = new Request;
+        $request->setUserResolver(fn () => null);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -63,11 +65,12 @@ class CheckForAnyScopeTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckScopes;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns(null);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }

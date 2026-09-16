@@ -16,13 +16,14 @@ class CheckAbilitiesTest extends TestCase
     public function test_request_is_passed_along_if_abilities_are_present_on_token()
     {
         $middleware = new CheckAbilities;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(true);
         $user->allows('tokenCan')->with('bar')->returns(true);
 
-        $response = $middleware->handle($request->instance(), function () {
+        $response = $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
 
@@ -34,12 +35,13 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Laravel\Sanctum\Exceptions\MissingAbilityException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
         $user->allows('tokenCan')->with('foo')->returns(false);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -49,10 +51,10 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(Request::class, override: true);
-        $request->expects('user')->returns(null);
+        $request = new Request;
+        $request->setUserResolver(fn () => null);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }
@@ -62,11 +64,12 @@ class CheckAbilitiesTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $middleware = new CheckAbilities;
-        $request = Double::for(Request::class, override: true);
-        $request->allows('user')->returns($user = Double::for(HasApiTokens::class));
+        $request = new Request;
+        $user = Double::for(HasApiTokens::class);
+        $request->setUserResolver(fn () => $user);
         $user->allows('currentAccessToken')->returns(null);
 
-        $middleware->handle($request->instance(), function () {
+        $middleware->handle($request, function () {
             return 'response';
         }, 'foo', 'bar');
     }
