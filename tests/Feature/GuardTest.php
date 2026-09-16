@@ -6,6 +6,7 @@ use JMac\Testing\Double;
 use DateTimeInterface;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Contracts\Auth\Guard as AuthGuard;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
@@ -17,7 +18,6 @@ use Laravel\Sanctum\Sanctum;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use stdClass;
 use Workbench\App\Models\User;
 use Workbench\Database\Factories\PersonalAccessTokenFactory;
 use Workbench\Database\Factories\UserFactory;
@@ -41,7 +41,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -59,7 +59,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -79,7 +79,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, 1, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -106,7 +106,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -133,7 +133,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -162,7 +162,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -218,7 +218,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -296,7 +296,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -330,7 +330,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -362,7 +362,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -406,7 +406,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users', false);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
@@ -435,7 +435,7 @@ class GuardTest extends TestCase
 
         $guard = new Guard($factory, null, 'users', true);
 
-        $webGuard = Double::for(stdClass::class);
+        $webGuard = Double::for(AuthGuard::class);
 
         $factory->allows('guard')->with('web')->returns($webGuard);
 
