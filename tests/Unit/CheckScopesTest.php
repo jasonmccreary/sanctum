@@ -4,17 +4,10 @@ namespace Laravel\Sanctum\Tests\Unit;
 
 use JMac\Testing\Double;
 use Laravel\Sanctum\Http\Middleware\CheckScopes;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CheckScopesTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-    }
-
     public function test_request_is_passed_along_if_scopes_are_present_on_token()
     {
         $middleware = new CheckScopes;

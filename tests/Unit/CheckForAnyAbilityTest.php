@@ -4,17 +4,10 @@ namespace Laravel\Sanctum\Tests\Unit;
 
 use JMac\Testing\Double;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CheckForAnyAbilityTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-    }
-
     public function test_request_is_passed_along_if_abilities_are_present_on_token()
     {
         $middleware = new CheckForAnyAbility;
