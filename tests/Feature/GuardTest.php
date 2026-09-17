@@ -2,6 +2,7 @@
 
 namespace Laravel\Sanctum\Tests\Feature;
 
+use JMac\Testing\Double;
 use DateTimeInterface;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
@@ -36,11 +37,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_is_attempted_with_web_middleware()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -56,11 +57,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_is_attempted_with_token_if_no_session_present()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -78,11 +79,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_with_token_fails_if_expired()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, 1, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -107,11 +108,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_with_token_fails_if_expires_at_has_passed()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
             ->with('web')
@@ -136,11 +137,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_with_token_succeeds_if_expires_at_not_passed()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
             ->with('web')
@@ -167,11 +168,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_is_successful_with_token_if_no_session_present()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -225,11 +226,11 @@ class GuardTest extends TestCase
     #[DataProvider('invalidTokenDataProvider')]
     public function test_authentication_with_token_fails_if_token_has_invalid_format($invalidToken)
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users');
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
             ->with('web')
@@ -305,11 +306,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_is_successful_with_token_in_custom_header()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -341,11 +342,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_fails_with_token_in_authorization_header_when_using_custom_header()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -375,11 +376,11 @@ class GuardTest extends TestCase
 
     public function test_authentication_fails_with_token_in_custom_header_when_using_default_authorization_header()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
                 ->with('web')
@@ -421,11 +422,11 @@ class GuardTest extends TestCase
 
     public function test_last_used_at_is_not_tracked_when_disabled()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users', false);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
             ->with('web')
@@ -452,11 +453,11 @@ class GuardTest extends TestCase
 
     public function test_last_used_at_is_tracked_when_enabled()
     {
-        $factory = Mockery::mock(AuthFactory::class);
+        $factory = Double::for(AuthFactory::class);
 
         $guard = new Guard($factory, null, 'users', true);
 
-        $webGuard = Mockery::mock(stdClass::class);
+        $webGuard = Double::for(stdClass::class);
 
         $factory->shouldReceive('guard')
             ->with('web')
