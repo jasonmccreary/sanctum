@@ -43,11 +43,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn($fakeUser = new User);
+        $webGuard->expects('user')->returns($fakeUser = new User);
 
         $user = $guard->__invoke(Request::create('/', 'GET'));
 
@@ -63,11 +61,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -85,11 +81,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -114,11 +108,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-            ->with('web')
-            ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -143,11 +135,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-            ->with('web')
-            ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -174,11 +164,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -232,11 +220,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-            ->with('web')
-            ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
 
@@ -312,11 +298,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('X-Auth-Token', 'test');
@@ -348,11 +332,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -382,11 +364,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-                ->with('web')
-                ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('X-Auth-Token', 'test');
@@ -428,11 +408,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-            ->with('web')
-            ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
@@ -459,11 +437,9 @@ class GuardTest extends TestCase
 
         $webGuard = Double::for(stdClass::class);
 
-        $factory->shouldReceive('guard')
-            ->with('web')
-            ->andReturn($webGuard);
+        $factory->allows('guard')->with('web')->returns($webGuard);
 
-        $webGuard->shouldReceive('user')->once()->andReturn(null);
+        $webGuard->expects('user')->returns(null);
 
         $request = Request::create('/', 'GET');
         $request->headers->set('Authorization', 'Bearer test');
