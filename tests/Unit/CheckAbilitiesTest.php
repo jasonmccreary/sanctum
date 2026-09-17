@@ -13,7 +13,6 @@ class CheckAbilitiesTest extends TestCase
     {
         parent::tearDown();
 
-        Mockery::close();
     }
 
     public function test_request_is_passed_along_if_abilities_are_present_on_token()
