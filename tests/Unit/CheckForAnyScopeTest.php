@@ -20,10 +20,10 @@ class CheckForAnyScopeTest extends TestCase
     {
         $middleware = new CheckScopes;
         $request = Double::for(\stdClass::class);
-        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
-        $user->shouldReceive('currentAccessToken')->andReturn($token = Double::for(\stdClass::class));
-        $user->shouldReceive('tokenCan')->with('foo')->andReturn(true);
-        $user->shouldReceive('tokenCan')->with('bar')->andReturn(false);
+        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
+        $user->allows('tokenCan')->with('foo')->returns(true);
+        $user->allows('tokenCan')->with('bar')->returns(false);
 
         $response = $middleware->handle($request, function () {
             return 'response';
@@ -38,10 +38,10 @@ class CheckForAnyScopeTest extends TestCase
 
         $middleware = new CheckScopes;
         $request = Double::for(\stdClass::class);
-        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
-        $user->shouldReceive('currentAccessToken')->andReturn($token = Double::for(\stdClass::class));
-        $user->shouldReceive('tokenCan')->with('foo')->andReturn(false);
-        $user->shouldReceive('tokenCan')->with('bar')->andReturn(false);
+        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $user->allows('currentAccessToken')->returns($token = Double::for(\stdClass::class));
+        $user->allows('tokenCan')->with('foo')->returns(false);
+        $user->allows('tokenCan')->with('bar')->returns(false);
 
         $middleware->handle($request, function () {
             return 'response';
@@ -54,7 +54,7 @@ class CheckForAnyScopeTest extends TestCase
 
         $middleware = new CheckScopes;
         $request = Double::for(\stdClass::class);
-        $request->shouldReceive('user')->once()->andReturn(null);
+        $request->expects('user')->returns(null);
 
         $middleware->handle($request, function () {
             return 'response';
@@ -67,8 +67,8 @@ class CheckForAnyScopeTest extends TestCase
 
         $middleware = new CheckScopes;
         $request = Double::for(\stdClass::class);
-        $request->shouldReceive('user')->andReturn($user = Double::for(\stdClass::class));
-        $user->shouldReceive('currentAccessToken')->andReturn(null);
+        $request->allows('user')->returns($user = Double::for(\stdClass::class));
+        $user->allows('currentAccessToken')->returns(null);
 
         $middleware->handle($request, function () {
             return 'response';
