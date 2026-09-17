@@ -4,7 +4,6 @@ namespace Laravel\Sanctum\Tests\Unit;
 
 use JMac\Testing\Double;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyScope as CheckScopes;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CheckForAnyScopeTest extends TestCase

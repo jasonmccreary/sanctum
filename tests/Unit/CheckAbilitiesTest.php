@@ -4,7 +4,6 @@ namespace Laravel\Sanctum\Tests\Unit;
 
 use JMac\Testing\Double;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
-use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CheckAbilitiesTest extends TestCase
